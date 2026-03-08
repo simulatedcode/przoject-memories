@@ -1,26 +1,153 @@
+@import url('https://fonts.googleapis.com');
+
 @import "tailwindcss";
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+
+ /* --- Typography --- */
+  --font-sans: var(--font-ibm-plex-sans);
+  --font-mono: var(--font-ibm-plex-mono);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ------------------------------------------------ */
+/* Base Reset */
+/* ------------------------------------------------ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  z-index:1;
+  margin: 0;
+  padding: 0;
+  background: #050506;
+  color: white;
+  min-height: 100%;
+  font-family: var(--font-sans), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+  /* Critical: prevents horizontal layout overflow from GSAP animations */
+  overflow-x: hidden;
+}
+
+.mono {
+  font-family: var(--font-mono), monospace;
+}
+
+.doto {
+  font-family: var(--font-doto);
+}
+
+/* ------------------------------------------------ */
+/* Font Defaults */
+/* ------------------------------------------------ */
+
+code,
+pre,
+.mono {
+  font-family: var(--font-mono);
+}
+.doto {
+  font-family: var(--font-doto);
+}
+
+
+/* ------------------------------------------------ */
+/* Cinematic Canvas */
+/* ------------------------------------------------ */
+
+canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ------------------------------------------------ */
+/* Scroll Narrative Layer */
+/* ------------------------------------------------ */
+
+main {
+  position: relative;
+  z-index: 10;
+}
+
+/* ------------------------------------------------ */
+/* Cinematic Sections */
+/* ------------------------------------------------ */
+
+section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 2rem;
+}
+
+/* ------------------------------------------------ */
+/* Typography */
+/* ------------------------------------------------ */
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 300;
+  letter-spacing: 0.08em;
+}
+
+h1 {
+  font-size: clamp(3rem, 8vw, 7rem);
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+h3 {
+  font-size: clamp(1.4rem, 2vw, 2rem);
+}
+
+/* ------------------------------------------------ */
+/* Cinematic Overlay */
+/* ------------------------------------------------ */
+
+.cinematic-text {
+  text-align: center;
+  max-width: 100%;
+  line-height: 1.6;
+}
+
+/* ------------------------------------------------ */
+/* Sci-Fi HUD Layer */
+/* ------------------------------------------------ */
+
+.hud {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 20;
+}
+
+/* ------------------------------------------------ */
+/* Subtle Film Grain */
+/* ------------------------------------------------ */
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  mix-blend-mode: exclusion;
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
 }
