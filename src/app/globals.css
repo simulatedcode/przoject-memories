@@ -1,153 +1,245 @@
-@import url('https://fonts.googleapis.com');
-
 @import "tailwindcss";
-@tailwind utilities;
 
 @theme {
+  /* --- Colors: Dystopian Palette --- */
+  --color-void: #050506;
+  --color-signal: #ffffff;
+  --color-amber: #ffb000;
+  --color-amber-dim: rgba(255, 176, 0, 0.4);
+  --color-glitch: #00f0ff;
 
- /* --- Typography --- */
-  --font-sans: var(--font-ibm-plex-sans);
-  --font-mono: var(--font-ibm-plex-mono);
+  /* --- Typography --- */
+  --font-sans: var(--font-ibm-plex-sans), system-ui, sans-serif;
+  --font-mono: var(--font-ibm-plex-mono), monospace;
+  --font-doto: var(--font-doto), sans-serif;
+
+  /* --- Text Presets --- */
+  --text-display-xl: 12rem;
+  --text-caption-sm: 0.65rem;
+
+  /* --- Animations --- */
+  @keyframes blink {
+
+    0%,
+    100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes scanline {
+    0% {
+      transform: translateY(-100%);
+    }
+
+    100% {
+      transform: translateY(100%);
+    }
+  }
+
+  @keyframes flicker {
+    0% {
+      opacity: 0.8;
+    }
+
+    5% {
+      opacity: 0.1;
+    }
+
+    10% {
+      opacity: 0.9;
+    }
+
+    15% {
+      opacity: 0.3;
+    }
+
+    20% {
+      opacity: 0.8;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  --animate-blink: blink 1s step-end infinite;
+  --animate-flicker: flicker 2s infinite;
+  --animate-scanline: scanline 8s linear infinite;
 }
 
 /* ------------------------------------------------ */
-/* Base Reset */
+/* Base Reset & Core Styles */
 /* ------------------------------------------------ */
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+@layer base {
 
-html,
-body {
-  z-index:1;
-  margin: 0;
-  padding: 0;
-  background: #050506;
-  color: white;
-  min-height: 100%;
-  font-family: var(--font-sans), system-ui, sans-serif;
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    background: var(--color-void);
+    color: var(--color-signal);
+    min-height: 100%;
+    font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
 
-  /* Critical: prevents horizontal layout overflow from GSAP animations */
-  overflow-x: hidden;
-}
+  /* 3D Canvas Background */
+  canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
 
-.mono {
-  font-family: var(--font-mono), monospace;
-}
+  main {
+    position: relative;
+    z-index: 10;
+  }
 
-.doto {
-  font-family: var(--font-doto);
-}
-
-/* ------------------------------------------------ */
-/* Font Defaults */
-/* ------------------------------------------------ */
-
-code,
-pre,
-.mono {
-  font-family: var(--font-mono);
-}
-.doto {
-  font-family: var(--font-doto);
-}
-
-
-/* ------------------------------------------------ */
-/* Cinematic Canvas */
-/* ------------------------------------------------ */
-
-canvas {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
+  section {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 2rem;
+  }
 }
 
 /* ------------------------------------------------ */
-/* Scroll Narrative Layer */
+/* Typography Utilities */
 /* ------------------------------------------------ */
 
-main {
-  position: relative;
-  z-index: 10;
+@layer utilities {
+  .font-doto {
+    font-family: var(--font-doto);
+  }
+
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+
+  .tracking-extrabroad {
+    letter-spacing: 2em;
+  }
+
+  .tracking-tighter-compressed {
+    letter-spacing: -0.05em;
+  }
+
+  .text-glow-amber {
+    text-shadow: 0 0 8px var(--color-amber-dim), 0 0 20px rgba(255, 176, 0, 0.2);
+  }
+
+  .text-display-xl {
+    font-size: clamp(4rem, 15vw, var(--text-display-xl));
+    line-height: 0.8;
+  }
+
+  .text-caption-sm {
+    font-size: var(--text-caption-sm);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    opacity: 0.4;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-size: clamp(3rem, 8vw, 7rem);
+  }
+
+  h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+  }
 }
 
 /* ------------------------------------------------ */
-/* Cinematic Sections */
-/* ------------------------------------------------ */
-
-section {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 6rem 2rem;
-}
-
-/* ------------------------------------------------ */
-/* Typography */
-/* ------------------------------------------------ */
-
-h1,
-h2,
-h3,
-h4 {
-  font-weight: 300;
-  letter-spacing: 0.08em;
-}
-
-h1 {
-  font-size: clamp(3rem, 8vw, 7rem);
-}
-
-h2 {
-  font-size: clamp(2rem, 4vw, 3rem);
-}
-
-h3 {
-  font-size: clamp(1.4rem, 2vw, 2rem);
-}
-
-/* ------------------------------------------------ */
-/* Cinematic Overlay */
+/* Cinematic Components & Overlays */
 /* ------------------------------------------------ */
 
 .cinematic-text {
+  position: relative;
+  z-index: 20;
   text-align: center;
-  max-width: 100%;
-  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* ------------------------------------------------ */
 /* Sci-Fi HUD Layer */
-/* ------------------------------------------------ */
-
-.hud {
+.hud-container {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 20;
+  z-index: 50;
 }
 
-/* ------------------------------------------------ */
-/* Subtle Film Grain */
-/* ------------------------------------------------ */
+/* Premium Effects */
+.glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.scanline {
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.05);
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  animation: scanline 8s linear infinite;
+  z-index: 100;
+}
+
+/* Overlay Mask Transitions */
+.reveal-mask-container {
+  clip-path: inset(0 0 100% 0);
+  /* Hidden from bottom */
+  width: 100%;
+  height: 100%;
+}
+
+.film-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  opacity: 0.05;
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+}
 
 body::after {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
-  opacity: 0.04;
+  opacity: 0.03;
   mix-blend-mode: exclusion;
   background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  z-index: 70;
 }
