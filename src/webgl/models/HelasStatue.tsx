@@ -12,14 +12,19 @@ export default function HelasStatue() {
   const materialRef = useRef<any>(null)
 
   useLayoutEffect(() => {
+    // Ensure matrices are updated for accurate bounds
+    scene.updateMatrixWorld()
+
     // Calculate the bounding box of the scene to find its bottom
     const box = new THREE.Box3().setFromObject(scene)
+    const size = new THREE.Vector3()
+    box.getSize(size)
     const center = new THREE.Vector3()
     box.getCenter(center)
 
-    // Offset the scene so it sits on the origin bottom-first
-    scene.position.y = -box.min.y
+    // Move the bottom center of the model to [0, 0, 0]
     scene.position.x = -center.x
+    scene.position.y = -box.min.y
     scene.position.z = -center.z
 
     // Enable shadows and apply "hologram" material to all meshes
@@ -32,6 +37,7 @@ export default function HelasStatue() {
         const mat = new HologramMaterial()
         mat.uColor = new THREE.Color("#ff66cc") // Slight pinkish tint
         mat.opacity = 0.8
+        mat.transparent = true
         mat.uScanlineDensity = 120.0
         mat.uScanlineSpeed = 1.5
         mat.uFresnelPower = 4.0
@@ -47,7 +53,6 @@ export default function HelasStatue() {
     if (materialRef.current) {
       materialRef.current.forEach((mat: any) => {
         mat.uTime = state.clock.getElapsedTime()
-        mat.cameraPosition.copy(state.camera.position)
       })
     }
   })

@@ -1,10 +1,12 @@
 import * as THREE from 'three'
-import fragmentShader from '../shaders/vignette.frag'
-import vertexShader from '../shaders/screen.vert'
+import fragmentShader from '@/webgl/shaders/postprocessing/vignette.frag'
+import vertexShader from '@/webgl/shaders/screen.vert'
 
 export const VignetteShader = {
     uniforms: {
-        tDiffuse: { value: null }
+        tDiffuse: { value: null },
+        uOffset: { value: 0.3 },
+        uDarkness: { value: 0.8 }
     },
     vertexShader,
     fragmentShader

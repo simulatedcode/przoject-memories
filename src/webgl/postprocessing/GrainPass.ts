@@ -1,11 +1,12 @@
 import * as THREE from 'three'
-import fragmentShader from '../shaders/grain.frag'
-import vertexShader from '../shaders/screen.vert'
+import fragmentShader from '@/webgl/shaders/postprocessing/grain.frag'
+import vertexShader from '@/webgl/shaders/screen.vert'
 
 export const GrainShader = {
     uniforms: {
         tDiffuse: { value: null },
-        uTime: { value: 0 }
+        uTime: { value: 0 },
+        uIntensity: { value: 0.03 }
     },
     vertexShader,
     fragmentShader

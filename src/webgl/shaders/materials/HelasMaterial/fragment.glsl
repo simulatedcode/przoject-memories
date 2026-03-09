@@ -1,7 +1,6 @@
 uniform float uTime;
 uniform vec3 uColor;
-uniform float uOpacity;
-uniform vec3 cameraPosition;
+uniform float opacity;
 uniform float uScanlineDensity;
 uniform float uScanlineSpeed;
 uniform float uFresnelPower;
@@ -23,7 +22,7 @@ void main() {
   vec3 baseColor = mix(vec3(1.0), uColor, 0.4);
   
   // Final Alpha/Opacity logic
-  float alpha = (fresnel * 0.8 + 0.2) * scanline * uOpacity;
+  float alpha = (fresnel * 0.8 + 0.2) * scanline * opacity;
   
   // Final composite
   vec3 finalColor = baseColor + fresnel * 0.5;

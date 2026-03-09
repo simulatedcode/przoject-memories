@@ -1,10 +1,11 @@
 import * as THREE from 'three'
-import fragmentShader from '../shaders/chromatic.frag'
-import vertexShader from '../shaders/screen.vert'
+import fragmentShader from '@/webgl/shaders/postprocessing/chromatic.frag'
+import vertexShader from '@/webgl/shaders/screen.vert'
 
 export const ChromaticShader = {
     uniforms: {
-        tDiffuse: { value: null }
+        tDiffuse: { value: null },
+        uOffset: { value: 0.002 }
     },
     vertexShader,
     fragmentShader

@@ -1,6 +1,6 @@
 import * as THREE from 'three'
-import fragmentShader from '../shaders/colorgrade.frag'
-import vertexShader from '../shaders/screen.vert'
+import fragmentShader from '@/webgl/shaders/postprocessing/colorgrade.frag'
+import vertexShader from '@/webgl/shaders/screen.vert'
 
 export const ColorGradeShader = {
     uniforms: {

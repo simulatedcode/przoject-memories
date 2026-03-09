@@ -63,11 +63,18 @@ export default function CinematicComposer() {
         return _composer
     }, [gl, scene, camera, size])
 
+    // Manage gl.autoClear
+    useEffect(() => {
+        const oldAutoClear = gl.autoClear
+        gl.autoClear = false
+        return () => { gl.autoClear = oldAutoClear }
+    }, [gl])
+
     // Update fog pass depth texture
     useEffect(() => {
         const fogPass = composer.passes.find(p => (p as any).material instanceof FogPass)
         if (fogPass) {
-            (fogPass as any).material.uniforms.tDepth.value = (composer as any).renderTarget1.depthTexture
+            (fogPass as any).material.uniforms.tDepth.value = (composer as any).readBuffer.depthTexture
         }
     }, [composer])
 

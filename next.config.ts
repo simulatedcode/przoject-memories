@@ -1,24 +1,24 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
   webpack(config) {
+
     config.module.rules.push({
       test: /\.(glsl|frag|vert|vs|fs)$/,
-      type: "asset/source",
-    });
+      type: "asset/source"
+    })
 
-    return config;
+    return config
   },
-
   experimental: {
     turbo: {
       rules: {
         "**/*.{glsl,frag,vert,vs,fs}": {
-          as: "string",
-        },
-      },
-    },
-  },
-};
+          as: "string"
+        }
+      }
+    }
+  }
+}
 
-export default nextConfig;
+export default nextConfig

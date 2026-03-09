@@ -14,7 +14,7 @@ export default function CinematicLights() {
 
       {/* Key light - Long shadow casting light */}
       <directionalLight
-        position={[20, 5, -10]}
+        position={[5, 10, 5]}
         intensity={2.5}
         color="#ffffff"
         castShadow

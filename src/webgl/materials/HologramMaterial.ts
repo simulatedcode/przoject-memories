@@ -9,8 +9,7 @@ export const HologramMaterial = shaderMaterial(
     {
         uTime: 0,
         uColor: new THREE.Color("#ffb000"),
-        uOpacity: 0.5,
-        cameraPosition: new THREE.Vector3(),
+        opacity: 0.5,
         uScanlineDensity: 100.0,
         uScanlineSpeed: 2.0,
         uFresnelPower: 3.0,
